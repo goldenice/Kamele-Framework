@@ -15,6 +15,7 @@ class Sys_Layout {
     }
     
     function render($data, $output = true) {
+        $data['baseurl'] = BASEURL;
         $html = file_get_contents($this->viewpath);
         foreach($data as $k=>$v) {
             $html = str_replace('{'.$k.'}', $v, $html);
@@ -29,6 +30,7 @@ class Sys_Layout {
     
     function renderPart($view, $data) {
         if (file_exists(VIEWS.$view.'.html')) {
+            $data['baseurl'] = BASEURL;
             $html = file_get_contents(VIEWS.$view.'.html');
             foreach($data as $k=>$v) {
                 $html = str_replace('{'.$k.'}', $v, $html);
