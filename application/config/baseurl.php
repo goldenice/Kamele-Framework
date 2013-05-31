@@ -1,2 +1,2 @@
 <?php
-define('BASEURL', 'https://rpi.ricklubbers.nl/dev/technasium/0.6/');
+define('BASEURL', 'https://rpi.ricklubbers.nl/dev/mvc/');
