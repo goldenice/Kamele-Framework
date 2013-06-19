@@ -1,4 +1,4 @@
-Arc-Framework
+Kamele-Framework
 =============
 
 Simple PHP framework.
