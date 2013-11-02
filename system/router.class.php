@@ -15,6 +15,12 @@ class Sys_Router {
         else {
             $url = $_GET['url'];
         }
+        if (substr($_GET['url'], 0, 1) == '/') {
+            $url = substr($_GET['url'], 1);
+        }
+        else {
+            $url = $_GET['url'];
+        }
         $url = explode('/', trim($url));
 
         // Determine which controller to load
