@@ -83,7 +83,7 @@ class Sys_Router {
             require SERVICES.strtolower($name).'.php';
         }
         elseif ($type == 'sys') {
-            require SYSTEM.strtolower($name).'.class.php';
+            require SYSTEM.strtolower($name).'.php';
         }
         else {
             return false;
