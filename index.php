@@ -26,7 +26,7 @@ ob_start();
 session_start();
 
 // Let us include the router class
-require_once SYSTEM.'router.class.php';
+require_once SYSTEM.'router.php';
 
 // Fire up the router, and start the rest of the loading procedure.
 // It's not like we're going to do more stuff in index.php
