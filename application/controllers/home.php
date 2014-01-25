@@ -1,5 +1,5 @@
 <?php
-class Controller_Home {
+class Controller_Home extends Sys_Basecontroller {
     function index($arg = null) {
         $layout = new Sys_Layout('home');
         

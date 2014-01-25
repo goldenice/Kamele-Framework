@@ -1,10 +1,7 @@
 <?php
-class Model_Sample {
+class Model_Sample extends Sys_Basemodel {
     function sampleMethod() {
-        // Access the database model to get data from database
-        // Or get some other data, from a $_SESSION for example.
-        // And return that.
-        // BUT NO FRICKIN' HTML here. EVER!
+        // These functions should be pretty much CRED for the database
         return 'This is some sample data from the sample model';
     }
 }
