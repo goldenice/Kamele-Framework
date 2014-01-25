@@ -79,6 +79,9 @@ class Sys_Router {
         elseif ($type == 'view') {
             require VIEWS.strtolower($name).'.php';
         }
+        elseif ($type == 'service') {
+            require SERVICES.strtolower($name).'.php';
+        }
         elseif ($type == 'sys') {
             require SYSTEM.strtolower($name).'.class.php';
         }
