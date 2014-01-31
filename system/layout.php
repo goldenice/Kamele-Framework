@@ -1,5 +1,7 @@
 <?php
-class Sys_Layout {
+namespace System;
+
+class Layout {
     private $view;
     private $viewpath;
     

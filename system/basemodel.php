@@ -1,10 +1,12 @@
 <?php
-abstract class Sys_Basemodel {
+namespace System;
+
+abstract class Basemodel {
     protected $db;
     protected $models;
  
     function __construct() {
-        $this->db = Sys_Database::getInstance();
-        $this->models = new Sys_Models;
+        $this->db = \System\Database::getInstance();
+        $this->models = new \System\Models;
     }   
 }

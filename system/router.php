@@ -5,9 +5,14 @@
  * Loads right classes 'n stuff
  * 
  */
- 
-class Sys_Router {
+
+namespace System;
+
+class Router {
     function __construct() {
+        // Register the class autoloader
+        spl_autoload_register('\System\Router::autoloader');
+        
         // Split the url into several vars
         if (substr($_GET['url'], -1) == '/') {
             $url = substr($_GET['url'], 0, (strlen($_GET['url'])-1));
@@ -25,10 +30,10 @@ class Sys_Router {
 
         // Determine which controller to load
         if ($url[0] == 'index.php' or $url[0] == '') {
-            $class = 'Controller_Home';
+            $class = '\Application\Controller\Home';
         }
         else {
-            $class = 'Controller_'.ucfirst($url[0]);
+            $class = '\Application\Controller\\'.ucfirst($url[0]);
         }
 
         // Check if we should use a custom method
@@ -66,23 +71,23 @@ class Sys_Router {
     }
     
     static function autoloader($classname) {
-        $expl = explode('_', $classname);
-        $type = strtolower($expl[0]);
-        unset($expl[0]);
-        $name = implode('_', array_values($expl));
-        if ($type == 'controller') {
+        $parts = explode('\\', $classname);
+        $name = end($parts);
+        
+        unset($parts[count($parts)-1]);
+        
+        $type = strtolower(implode('\\', array_values($parts)));
+        
+        if ($type == 'application\controller') {
             require CONTROLLERS.strtolower($name).'.php';
         }
-        elseif ($type == 'model') {
+        elseif ($type == 'application\model') {
             require MODELS.strtolower($name).'.php';
         }
-        elseif ($type == 'view') {
-            require VIEWS.strtolower($name).'.php';
-        }
-        elseif ($type == 'service') {
+        elseif ($type == 'application\service') {
             require SERVICES.strtolower($name).'.php';
         }
-        elseif ($type == 'sys') {
+        elseif ($type == 'system') {
             require SYSTEM.strtolower($name).'.php';
         }
         else {
@@ -90,13 +95,4 @@ class Sys_Router {
         }
         return true;
     }
-}
-
-
-/**
- * Teehee: __autoload redirect
- */
- 
-function __autoload($classname) {
-    return Sys_Router::autoloader($classname);
 }

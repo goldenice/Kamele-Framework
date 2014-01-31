@@ -1,12 +1,14 @@
 <?php
-abstract class Sys_Baseservice {
+namespace System;
+
+abstract class Baseservice {
 	protected $db;
     protected $models;
     protected $services;
     
     function __construct() {
-    	$this->db = Sys_Database::getInstance();
-    	$this->models = new Sys_Models;
-        $this->services = new Sys_Services;
+    	$this->db = \System\Database::getInstance();
+    	$this->models = new \System\Models;
+        $this->services = new \System\Services;
     }
 }

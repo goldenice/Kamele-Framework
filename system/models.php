@@ -1,9 +1,11 @@
 <?php
-final class Sys_Models extends Sys_Singleton {
+namespace System;
+
+final class Models extends Singleton {
     private $saved_models;
     
     function __construct() {
-        $this->saved_models = new StdClass;             // Init empty object to save other objects in
+        $this->saved_models = new \StdClass;             // Init empty object to save other objects in
     }
     
     final function __get($name) {

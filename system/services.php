@@ -1,9 +1,11 @@
 <?php
-final class Sys_Services extends Sys_Singleton {
+namespace System;
+
+final class Services extends Singleton {
     private $saved_services;
     
     function __construct() {
-        $this->saved_services = new StdClass;               // Init empty object to save other objects in
+        $this->saved_services = new \StdClass;               // Init empty object to save other objects in
     }
     
     final function __get($name) {

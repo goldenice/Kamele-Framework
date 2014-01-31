@@ -1,5 +1,7 @@
 <?php
-class Sys_Singleton {
+namespace System;
+
+class Singleton {
     private static $instances = array();
     
     protected function __construct() {}

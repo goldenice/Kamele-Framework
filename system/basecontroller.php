@@ -1,10 +1,12 @@
 <?php
-class Sys_Basecontroller {
+namespace System;
+
+abstract class Basecontroller {
 	protected $models;
 	protected $services;
 	
 	function __construct() {
-		$this->models = new Sys_Models;
-		$this->services = new Sys_Services;
+		$this->models = new \System\Models;
+		$this->services = new \System\Services;
 	}
 }

@@ -1,6 +1,7 @@
 <?php
+namespace System;
 
-class Sys_Database {
+class Database extends Singleton {
     private $handler;
     
     function __construct($host = DB_HOST, $user = DB_USER, $pass = DB_PASS, $name = DB_NAME) {

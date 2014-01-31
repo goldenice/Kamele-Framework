@@ -1,9 +1,11 @@
 <?php
-class Controller_Home extends Sys_Basecontroller {
+namespace Application\Controller;
+
+class Home extends \System\Basecontroller {
     function index($arg = null) {
-        $layout = new Sys_Layout('home');
+        $layout = new \System\Layout('home');
         
-        $test = new Service_Test;
+        $test = new \Application\Service\Test;
         $content = $test->someFunction();
         
         $layout->render(array('content'=>$content, 'title'=>'Home'));

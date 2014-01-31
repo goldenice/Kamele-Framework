@@ -1,5 +1,7 @@
 <?php
-class Service_Test extends Sys_Baseservice {
+namespace Application\Service;
+
+class Test extends \System\Baseservice {
     function someFunction() {
         return 'Hi :D';
     }
