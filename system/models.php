@@ -9,10 +9,11 @@ final class Models extends Singleton {
     }
     
     final function __get($name) {
+        $name = strtolower($name);
         if (!isset($this->saved_models->{$name})) {
             if (file_exists(MODELS.$name.'.php')) {
-                $classname = 'Model_'.ucfirst($name);
-                if (is_subclass_of($classname, 'Sys_Singleton')) {
+                $classname = '\Application\Model\\'.ucfirst($name);
+                if (is_subclass_of($classname, '\System\Singleton')) {
                     $this->saved_models->{$name} = $classname::getInstance();
                 }
                 else {

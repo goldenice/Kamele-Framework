@@ -5,7 +5,7 @@ class Home extends \System\Basecontroller {
     function index($arg = null) {
         $layout = new \System\Layout('home');
         
-        $test = new \Application\Service\Test;
+        $test = $this->services->test;
         $content = $test->someFunction();
         
         $layout->render(array('content'=>$content, 'title'=>'Home'));

@@ -9,10 +9,11 @@ final class Services extends Singleton {
     }
     
     final function __get($name) {
+        $name = strtolower($name);
         if (!isset($this->saved_services->{$name})) {
-            if (file_exists(MODELS.$name.'.php')) {
-                $classname = 'Service_'.ucfirst($name);
-                if (is_subclass_of($classname, 'Sys_Singleton')) {
+            if (file_exists(SERVICES.$name.'.php')) {
+                $classname = '\Application\Service\\'.ucfirst($name);
+                if (is_subclass_of($classname, '\System\Singleton')) {
                     $this->saved_services->{$name} = $classname::getInstance();
                 }
                 else {
