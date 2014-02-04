@@ -71,24 +71,35 @@ class Router {
     }
     
     static function autoloader($classname) {
+        // Separate the parts of the whole namespace
         $parts = explode('\\', $classname);
-        $name = end($parts);
+        $name = end($parts);                                            // Get classname
         
-        unset($parts[count($parts)-1]);
+        unset($parts[count($parts)-1]);                                 // Delete classname for putting the path back together
         
-        $type = strtolower(implode('\\', array_values($parts)));
+        $type = strtolower($parts[0].'\\'.$parts[1]);                   // Get type
+        
+        unset($parts[0]);                                               // Delete time from path
+        unset($parts[1]);                                               // Same
+        $dir = strtolower(implode('/', array_values($parts)));         // Glue the stuff back together
+        if ($dir == '' or $dir == '/') {
+            $dir = '';
+        }
+        else {
+            $dir .= '/';
+        }
         
         if ($type == 'application\controller') {
-            require CONTROLLERS.strtolower($name).'.php';
+            require CONTROLLERS.$dir.strtolower($name).'.php';
         }
         elseif ($type == 'application\model') {
-            require MODELS.strtolower($name).'.php';
+            require MODELS.$dir.strtolower($name).'.php';
         }
         elseif ($type == 'application\service') {
-            require SERVICES.strtolower($name).'.php';
+            require SERVICES.$dir.strtolower($name).'.php';
         }
-        elseif ($type == 'system') {
-            require SYSTEM.strtolower($name).'.php';
+        elseif ($type == 'system\\') {
+            require SYSTEM.$dir.strtolower($name).'.php';
         }
         else {
             return false;
