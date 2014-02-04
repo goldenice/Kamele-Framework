@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kamele Framework documentation</title>
+        
+        <link rel="stylesheet" href="css/general.css" />
+    </head>
+    
+    <body>
+        <div id="content">
+            <h1>Kamele Framework documentation</h1>
+        
+            <hr />
+        
+            <h2 id="index">Table of Contents</h2>
+            <nav>
+            <ol start="0">
+                <li><a href="#index">Table of Contents</a></li>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#license">License</a></li>
+                <li><a href="#globalstructure">Global Structure</a>
+                    <ul>
+                        <li><a href="#controllers">Controllers</a></li>
+                        <li><a href="#models">Models</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#views">Views</a></li>
+                    </ul>
+                </li>
+                <li><a href="#routing">Routing</a></li>
+                <li><a href="#contributing">Contributing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ol>
+            </nav>
+        
+            <hr />
+        
+            <h2 id="introduction">Introduction</h2>
+            <p>You seem to have found Kamele Framework. Cool. It is a PHP framework based on the Model-View-Controller design pattern. It started out as a learning project for me (Rick Lubbers) and ended up as a really light-weight framework.</p>
+        
+            <hr />
+        
+            <h2 id="license">License</h2>
+            <p>Since there wasn't a good open source license to fit my needs, I've created my own. Thing you can do:
+                <ul>
+                    <li>Use Kamele in your open source project</li>
+                    <li>Use Kamele in your commercial project</li>
+                    <li>Change the code of Kamele for you own usage</li>
+                    <li>Change the code of Kamele and release it under another name</li>
+                </ul>
+                
+                <br />Things you can't do:
+                <ul>
+                    <li>Claim you wrote Kamele and / or distribute it under your name</li>
+                    <li>Change the code of Kamele and distribute it using the name Kamele or Kamele Framework</li>
+                </ul>
+                
+                Pretty straightforward right? If you do have any questions about something, just contact Rick Lubbers &lt;kamele@ricklubbers.nl&gt;.
+            </p>
+            
+            <hr />
+            
+            <h2 id="globalstructure">Global Structure</h2>
+            <p>Kamele Framework works with a <i>Model-View-Controller structure</i>, extended with <i>Services</i>, which provide a layer of logic code between <i>Models</i> and <i>Controllers</i>.</p>
+            <p>All the different types of classes are described below.</p>
+            
+            <h3 id="controllers">Controllers</h3>
+            <p>The controllers used in Kamele are actually a mix between controllers and template renderers. View in Kamele are static HTML files, so the controller has to glue all those pieces of HTML together. That can be done through the <i>Layout class</i>. This class let's you substitude strings like <i>{content}</i> with dynamically loaded data, coming from services or models. So the controllers stitch data and HTML together.</p>
+        
+            <h3 id="models">Models</h3>
+            <p>Models provide an interface to the database. Models are the only type of classes which can contain queries. Services heavily rely on models to fetch data from the database. Models do not 'know' any other part of the framework except for the <i>Database class</i>.</p>
+            
+            <h3 id="services">Services</h3>
+            <p>Services rely heavily on models for data. Can connect with 3rd party API's over HTTP and can access files. Services essentially form the logic part of your application, whereas controllers stitch the data from the services into the HTML.</p>
+            <p>Logic should always be located in services, and never in models. Models are 'dumb' objects whereas services can contain quite a bit of code. Services are considered 'smart' objects.</p>
+            
+            <h3 id="views">Views</h3>
+            <p>Views are static pieces of HTML. They may contain placeholders like <i>{content}</i>, which are replaced by some other HTML or plain text. The controller takes care of that part. An example of a view is:
+            <pre class="code">
+&lt;a href="http://google.com/{suburl}"&gt; Lets go to Google.com/{suburl} ! &lt;/a&gt;</pre>
+            </p>
+            
+            <hr />
+            
+            <h2 id="access">Accessing other classes</h2>
+            <p>Other classes can be accessed from the $this variable. Every model, service and controller should extend the basemodel, baseservice and basecontroller defined in the system files. Those base classes preload a few classes so you can access them easily. Lets see a piece of controller code:
+                <pre class="code">
+class Controller_Example extends \System\Basecontroller {
+    function index($arg = null) {
+        $this->services->auth->login($_POST['username'], $_POST['password']);
+        $this->models->users->getById(1);
+    }
+}</pre>
+            This is a piece of example code. This code accesses \Application\Service\Auth::login() and \Application\Model\Users::getById(1) in a non-static way. The same code can be used within a service class. A model class however, only needs to access the database, and as such has only access to other models through <i>$this->models</i> and the database through <i>$this->db</i>.</p>
+            <p>Note: once an instance of a certain class has been created, this instance will be persistent throughout the entire application. There will only be one object of each class available through this interface. If you want more object or separate objects, you need to call them through the <i>new</i> statement, but that is not recommend.</p>
+            
+            <hr />
+            
+            <h2 id="routing">Routing</h2>
+            <p>Routing in Kamele is done automatically. If configured right (see .htaccess) the webserver should rewrite URL's to index.php, which calls the router. Below is a scheme of what URL routes where.
+            <table>
+                <tr><td>URL</td><td>Class</td><td>Function</td></tr>
+                <tr><td>example.com</td><td>\Application\Controller\Home</td><td>index()</td></tr>
+                <tr><td>example.com/home</td><td>\Application\Controller\Home</td><td>index()</td></tr>
+                <tr><td>example.com/home/index</td><td>\Application\Controller\Home</td><td>index()</td></tr>
+                <tr><td>example.com/user</td><td>\Application\Controller\User</td><td>index()</td></tr>
+                <tr><td>example.com/user/login</td><td>\Application\Controller\User</td><td>login()</td></tr>
+                <tr><td>example.com/user/register</td><td>\Application\Controller\User</td><td>register()</td></tr>
+                <tr><td>example.com/view/page/40/2</td><td>\Application\Controller\View</td><td>page( $arg = array(40, 2) )</td></tr>
+            </table><br />
+            This table is pretty self-explainatory. The first part of the URL defines the controller, the second part the function within that controller, and the parts after that are arguments.
+            </p>
+            
+            <hr />
+            
+            <h2 id="contributing">Contributing</h2>
+            <p>This project is entirely open source, contributing is highly appreciated. Check out the <a href="https://github.com/goldenice/Kamele-Framework">GitHub repo</a>. You can add any bugs, issues or suggestions in the issue tracker at GitHub. Contributing is possible through pull requests. First you need to fork the repo, make your changes and then submit a pull request. I will review those changes, and if I think they are okay then I will approve the request and the new code will be added to the repo.</p>
+            <p>Are you not able to code? <span class="strikethrough">Then what are you doing with Kamele?</span> You can always donate, contact me on how to do that.</p>
+            
+            <hr />
+            
+            <h2 id="contact">Contact</h2>
+            <p>You can email me at <a href="mailto:kamele@ricklubbers.nl">kamele@ricklubbers.nl</a>, or you can send me a tweet <a href="http://twitter.com/srebbulkcir">@srebbulkcir</a>. Seriously, if you are hesitating to contact me, just do it. I won't bite!</p>
+            
+            <hr />
+            
+            <p>This document is shared under the Kamele License, included with <a href="https://github.com/goldenice/Kamele-Framework">Kamele Framework.</a> Written by Rick Lubbers, 2014</p>
+        </div>
+    </body>
+</html>
