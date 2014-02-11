@@ -1,4 +1,13 @@
 <?php
+/**
+ * Kamele Framework v1.0
+ * 
+ * @author      Rick Lubbers            <me@ricklubbers.nl>
+ * @license     Kamele License v1.0     see LICENSE.txt
+ * 
+ * 04 February 2014
+ */
+
 // Load config files
 $configdir = 'application/config';
 $cfg = opendir($configdir);
