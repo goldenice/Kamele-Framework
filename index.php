@@ -31,3 +31,6 @@ require_once SYSTEM.'router.php';
 // Fire up the router, and start the rest of the loading procedure.
 // It's not like we're going to do more stuff in index.php
 new \System\Router;
+
+// Exit the nice way. I guess.
+exit(0);
