@@ -13,18 +13,23 @@ class Router {
         // Register the class autoloader
         spl_autoload_register('\System\Router::autoloader');
         
+        // Fire up the actual routing
+        $this->route($_GET['url']);
+    }
+    
+    function route($uri) {
         // Split the url into several vars
-        if (substr($_GET['url'], -1) == '/') {
-            $url = substr($_GET['url'], 0, (strlen($_GET['url'])-1));
+        if (substr($uri, -1) == '/') {
+            $url = substr($uri, 0, (strlen($uri)-1));
         }
         else {
-            $url = $_GET['url'];
+            $url = $uri;
         }
-        if (substr($_GET['url'], 0, 1) == '/') {
-            $url = substr($_GET['url'], 1);
+        if (substr($uri, 0, 1) == '/') {
+            $url = substr($uri, 1);
         }
         else {
-            $url = $_GET['url'];
+            $url = $uri;
         }
         $url = explode('/', trim($url));
 
@@ -57,7 +62,7 @@ class Router {
         // Create controller
         $controller = new $class;
         if (method_exists($controller, $method)) { 
-            $controller->$method($arg);
+            $controller->$method($arg);     // Actual execution of the desired controller function
         }
         else {
             // Handle nice error thingey or something
