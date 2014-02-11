@@ -8,7 +8,7 @@
 
 namespace System;
 
-class Router {
+final class Router {
     function __construct() {
         // Register the class autoloader
         spl_autoload_register('\System\Router::autoloader');
