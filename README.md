@@ -1,8 +1,9 @@
 Kamele-Framework
 =============
 
-Simple PHP framework.
+It's a PHP framework.
+It works.
+Cool.
 
-=============
-
-This framework implements the basic functionality of MVC.
+Check that build out: 
+[![Build Status](https://travis-ci.org/goldenice/Kamele-Framework.png?branch=master)](https://travis-ci.org/goldenice/Kamele-Framework)
