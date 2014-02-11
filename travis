@@ -1,7 +1,0 @@
-<exec dir="${basedir}" executable="phpcs" output="/${target.dir}/phpcs/checkstyle.xml">
-	<arg line="--report=checkstyle" />
-	<arg line="--standard=${phpcs.standard}" />
-	<arg line="--extensions=php" />
-	<arg line="-n" />
-	<arg line="${phpcs.include}" />
-</exec>

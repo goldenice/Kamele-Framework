@@ -1,5 +1,0 @@
-<project name="MyProject" default="dist" basedir=".">
-	<description>
-		Build file for Kamele Framework
-	</description>
-</project>
