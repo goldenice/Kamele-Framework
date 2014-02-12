@@ -9,7 +9,7 @@
  */
 
 // Load config files
-$configdir = 'application/config';
+$configdir = 'config';
 $cfg = opendir($configdir);
 while ($item = readdir($cfg)) {
     $ext = explode('.', $item);
@@ -35,7 +35,7 @@ ob_start();
 session_start();
 
 // Let us include the router class
-require_once SYSTEM.'router.php';
+require_once 'system/router.php';
 
 // Fire up the router, and start the rest of the loading procedure.
 // It's not like we're going to do more stuff in index.php

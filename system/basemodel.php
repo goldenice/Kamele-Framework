@@ -3,12 +3,12 @@ namespace System;
 
 abstract class Basemodel {
     protected $db;
-    protected $models;
+    protected $loader;
     protected $events;
  
     function __construct() {
         $this->db = \System\Database::getInstance();
-        $this->models = new \System\Models;
+        $this->loader = \System\Loader::getInstance();
         $this->events = \System\Events::getInstance();
     }   
 }

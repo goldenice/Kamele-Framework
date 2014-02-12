@@ -33,26 +33,31 @@ final class Router {
         }
         $url = explode('/', trim($url));
 
-        // Determine which controller to load
+        // Determine which module and controller to load
         if ($url[0] == 'index.php' or $url[0] == '') {
-            $class = '\Application\Controller\Home';
+            $class = '\Modules\Main\Controllers\Home';
         }
-        else {
-            $class = '\Application\Controller\\'.ucfirst($url[0]);
+        else {  
+            $class = '\Modules\\'.ucfirst($url[0]).'\Controllers\\'.ucfirst($url[1]);
+            if (!class_exists($class, true)) {
+                array_unshift($url, 'Main');
+            }
+            $class = '\Modules\\'.ucfirst($url[0]).'\Controllers\\'.ucfirst($url[1]);
         }
 
         // Check if we should use a custom method
-        if (sizeOf($url) > 1) {
-            $method = $url[1];
+        if (sizeOf($url) > 2) {
+            $method = $url[2];
         }
         else {
             $method = 'index';
         }
 
         // Check if we should give any other arguments
-        if (sizeOf($url) > 2) {
+        if (sizeOf($url) > 3) {
             unset($url[0]);
             unset($url[1]);
+            unset($url[2]);
             $arg = array_values($url);
         }
         else {
@@ -81,12 +86,8 @@ final class Router {
         $name = end($parts);                                            // Get classname
         
         unset($parts[count($parts)-1]);                                 // Delete classname for putting the path back together
-        
-        $type = strtolower($parts[0].'\\'.$parts[1]);                   // Get type
-        
-        unset($parts[0]);                                               // Delete time from path
-        unset($parts[1]);                                               // Same
-        $dir = strtolower(implode('/', array_values($parts)));         // Glue the stuff back together
+
+        $dir = strtolower(implode('/', array_values($parts)));          // Glue the stuff back together
         if ($dir == '' or $dir == '/') {
             $dir = '';
         }
@@ -94,21 +95,8 @@ final class Router {
             $dir .= '/';
         }
         
-        if ($type == 'application\controller') {
-            require CONTROLLERS.$dir.strtolower($name).'.php';
-        }
-        elseif ($type == 'application\model') {
-            require MODELS.$dir.strtolower($name).'.php';
-        }
-        elseif ($type == 'application\service') {
-            require SERVICES.$dir.strtolower($name).'.php';
-        }
-        elseif ($type == 'system\\') {
-            require SYSTEM.$dir.strtolower($name).'.php';
-        }
-        else {
-            return false;
-        }
+        require strtolower($dir).strtolower($name).'.php';
+
         return true;
     }
 }

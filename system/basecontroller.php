@@ -2,13 +2,11 @@
 namespace System;
 
 abstract class Basecontroller {
-	protected $models;
-	protected $services;
+	protected $loader;
     protected $events;
 	
 	function __construct() {
-		$this->models = new \System\Models;
-		$this->services = new \System\Services;
+		$this->loader = \System\Loader::getInstance();
         $this->events = \System\Events::getInstance();
 	}
 }

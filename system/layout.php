@@ -6,9 +6,9 @@ class Layout {
     private $viewpath;
     
     function __construct($view) {
-        if (file_exists(VIEWS.$view.'.html')) {
+        if (file_exists($view.'.html')) {
             $this->view = $view;
-            $this->viewpath = VIEWS.$view.'.html';
+            $this->viewpath = $view.'.html';
             return true;
         }
         else {
@@ -31,9 +31,9 @@ class Layout {
     }
     
     function renderPart($view, $data) {
-        if (file_exists(VIEWS.$view.'.html')) {
+        if (file_exists($view.'.html')) {
             $data['baseurl'] = BASEURL;
-            $html = file_get_contents(VIEWS.$view.'.html');
+            $html = file_get_contents($view.'.html');
             foreach($data as $k=>$v) {
                 $html = str_replace('{'.$k.'}', $v, $html);
             }
