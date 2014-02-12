@@ -1,2 +1,2 @@
 <?php
-define('BASEURL', 'https://rpi.ricklubbers.nl/dev/mvc/');
+define('BASEURL', 'http://example.com/');
