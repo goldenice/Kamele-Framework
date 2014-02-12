@@ -13,8 +13,6 @@ before_script:
   - pear channel-discover pear.phpqatools.org
   - pear install -f phpqatools/phpqatools
   - phpenv rehash
-  - git clone git://github.com/wimg/PHP53Compat_CodeSniffer.git PHP53Compatibility
-  - 
        
 script:
   - phpcs --standard=phpcs_ruleset.xml .
