@@ -4,10 +4,6 @@ namespace System;
 class Events extends \System\Singleton {
     private $listeners;
     
-    function __construct() {
-        parent::__construct();
-    }
-    
     function fireEvent($name, &$data = null) {
         if (!empty($this->listeners[$name])) {
             foreach ($this->listeners[$name] as $k=>$v) {
