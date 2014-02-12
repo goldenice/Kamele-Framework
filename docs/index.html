@@ -20,6 +20,7 @@
                 <li><a href="#license">License</a></li>
                 <li><a href="#globalstructure">Global Structure</a>
                     <ul>
+                        <li><a href="#modules">Modules</a></li>
                         <li><a href="#controllers">Controllers</a></li>
                         <li><a href="#models">Models</a></li>
                         <li><a href="#services">Services</a></li>
@@ -61,7 +62,10 @@
             
             <h2 id="globalstructure">Global Structure</h2>
             <p>Kamele Framework works with a <i>Model-View-Controller structure</i>, extended with <i>Services</i>, which provide a layer of logic code between <i>Models</i> and <i>Controllers</i>.</p>
-            <p>All the different types of classes are described below.</p>
+            <p>All the different types of classes are described below. Those classes are all divided into separate modules.</p>
+            
+            <h3 id="modules">Modules</h3>
+            <p>Kamele uses modules to divide the logic between separate tiny applications, so modules can be reused easily. All modules can be found in <i>/modules</i>. Each module has exactly one subdirectory in <i>/modules</i>. One directory has to be present, namely <i>/modules/main</i>. That is the default route too. <a href="#routing">Read more about routing.</a></p>
             
             <h3 id="controllers">Controllers</h3>
             <p>The controllers used in Kamele are actually a mix between controllers and template renderers. View in Kamele are static HTML files, so the controller has to glue all those pieces of HTML together. That can be done through the <i>Layout class</i>. This class let's you substitude strings like <i>{content}</i> with dynamically loaded data, coming from services or models. So the controllers stitch data and HTML together.</p>
@@ -84,13 +88,15 @@
             <h2 id="access">Accessing other classes</h2>
             <p>Other classes can be accessed from the $this variable. Every model, service and controller should extend the basemodel, baseservice and basecontroller defined in the system files. Those base classes preload a few classes so you can access them easily. Lets see a piece of controller code:
                 <pre class="code">
-class Controller_Example extends \System\Basecontroller {
+namespace \Modules\nl.ricklubbers.auth\Controllers;
+class Example extends \System\Basecontroller {
     function index($arg = null) {
-        $this->services->auth->login($_POST['username'], $_POST['password']);
-        $this->models->users->getById(1);
+        $this->loader['\Modules\nl.ricklubbers.auth\Services\Session']
+            ->login($_POST['username'], $_POST['password']);
     }
 }</pre>
-            This is a piece of example code. This code accesses \Application\Service\Auth::login() and \Application\Model\Users::getById(1) in a non-static way. The same code can be used within a service class. A model class however, only needs to access the database, and as such has only access to other models through <i>$this->models</i> and the database through <i>$this->db</i>.</p>
+            This is a piece of example code. This code accesses \Modules\nl.ricklubbers.auth\Services\Session::login() in a non-static way.</p>
+            <p>Note: The database can be accessed with $this->db.</p>
             <p>Note: once an instance of a certain class has been created, this instance will be persistent throughout the entire application. There will only be one object of each class available through this interface. If you want more object or separate objects, you need to call them through the <i>new</i> statement, but that is not recommend.</p>
             
             <hr />
@@ -100,14 +106,14 @@ class Controller_Example extends \System\Basecontroller {
             <table>
                 <tr><td>URL</td><td>Class</td><td>Function</td></tr>
                 <tr><td>example.com</td><td>\Application\Controller\Home</td><td>index()</td></tr>
-                <tr><td>example.com/home</td><td>\Application\Controller\Home</td><td>index()</td></tr>
-                <tr><td>example.com/home/index</td><td>\Application\Controller\Home</td><td>index()</td></tr>
-                <tr><td>example.com/user</td><td>\Application\Controller\User</td><td>index()</td></tr>
-                <tr><td>example.com/user/login</td><td>\Application\Controller\User</td><td>login()</td></tr>
-                <tr><td>example.com/user/register</td><td>\Application\Controller\User</td><td>register()</td></tr>
-                <tr><td>example.com/view/page/40/2</td><td>\Application\Controller\View</td><td>page( $arg = array(40, 2) )</td></tr>
+                <tr><td>example.com/home</td><td>\Modules\Main\Controllers\Home</td><td>index()</td></tr>
+                <tr><td>example.com/home/index</td><td>\Modules\Main\Controllers\Home</td><td>index()</td></tr>
+                <tr><td>example.com/user</td><td>\Modules\User\Controllers\Home</td><td>index()</td></tr>
+                <tr><td>example.com/user/basic</td><td>\Modules\User\Controllers\Basic</td><td>index()</td></tr>
+                <tr><td>example.com/user/basic/login</td><td>\Modules\User\Controllers\Basic</td><td>login()</td></tr>
+                <tr><td>example.com/user/view/page/40/2</td><td>\Modules\User\Controllers\View</td><td>page( $arg = array(40, 2) )</td></tr>
             </table><br />
-            This table is pretty self-explainatory. The first part of the URL defines the controller, the second part the function within that controller, and the parts after that are arguments.
+            This table is pretty self-explainatory. The first part of the URL defines the module, the second part the controller, the third part the function, and the parts after that are arguments. If the module requested does not exist, then the routing will default to the module Main.
             </p>
             
             <hr />
