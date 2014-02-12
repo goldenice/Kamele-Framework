@@ -1,11 +1,14 @@
 <?php
 namespace System;
+use PDO;
 
 class Database extends Singleton {
     private $handler;
+    private $dbtype = 'mysql';
     
     function __construct($host = DB_HOST, $user = DB_USER, $pass = DB_PASS, $name = DB_NAME) {
-        $this->handler = mysqli_connect($host, $user, $pass, $name);
+        $this->handler = new PDO($this->dbtype.':dbname='.$name.';host='.$host, $user, $pass);
+        $this->handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
         if ($this->handler == null or $this->handler == false) {
             return false;
             $this->handler = null;
@@ -19,38 +22,30 @@ class Database extends Singleton {
         return $this->handler->query($query);
     }
     
-    function escape($input) {
-        return $this->handler->real_escape_string($input);
-    }
-    
     function fetchAssoc($input) {
-        return mysqli_fetch_assoc($input);
+        return $input->fetch(PDO::FETCH_ASSOC);
     }
     
     function numRows($input) {
-		return mysqli_num_rows($input);
+		return $input->rowCount();
 	}
     
     function toArray($input) {
-        $output = array();
-        while ($a = $this->fetchAssoc($input)) {
-            $output[] = $a;
-        }
-        return $output;
+        return $input->fetchAll();
     }
 	
-	function mysqlError() {
-		return mysqli_error($this->handler);
+	function mysqlError($input = null) {
+		if ($input != null) return $input->errorInfo();
+        else return $this->handler->errorInfo();
 	}
     
     function safeQuery($query, $input = array()) {
-        $repl = array();
-        $vals = array();
+        $prep = $this->handler->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         foreach ($input as $k=>$v) {
-            $repl[] = '{{'.$k.'}}';
-            $vals[] = $v;
+            $input[':'.$k] = $v;
+            unset($input[$k]);
         }
-        $query = str_replace($repl, $vals, $query);
-        return $this->query($query);
+        $prep->execute($input);
+        return $prep;
     }
 }

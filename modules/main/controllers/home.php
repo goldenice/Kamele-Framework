@@ -5,7 +5,7 @@ class Home extends \System\Basecontroller {
     function index($arg = null) {
         $layout = new \System\Layout('modules/main/views/home');
         
-        //$this->events->addListener('pageDone', '\Application\Controller\Home::displayFooter');
+        $this->events->addListener('pageDone', '\Modules\Main\Controllers\Home::displayFooter');
         
         $test = $this->loader['\Modules\Main\Models\Example'];
         $content = $test->exampleMethod();
@@ -13,7 +13,7 @@ class Home extends \System\Basecontroller {
         $layout->render(array('content'=>$content, 'title'=>'Home'));
         
         
-        //$this->events->fireEvent('pageDone');
+        $this->events->fireEvent('pageDone');
     }
     
     static function displayFooter(&$data = null) {
