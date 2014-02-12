@@ -7,8 +7,8 @@ class Home extends \System\Basecontroller {
         
         //$this->events->addListener('pageDone', '\Application\Controller\Home::displayFooter');
         
-        //$test = $this->services->test;
-        //$content = $test->someFunction();
+        $test = $this->loader['\Modules\Main\Models\Example'];
+        $content = $test->exampleMethod();
         
         $layout->render(array('content'=>$content, 'title'=>'Home'));
         
