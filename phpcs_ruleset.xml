@@ -1,21 +1,17 @@
 <?xml version="1.0"?>
 <ruleset name="Kamele">
     <description>Coding standard based on Zend with some additions.</description>
-
-     <!-- Include the whole Zend standard -->
-    <!--<rule ref="Zend">
-        <exclude name="" />
-    </rule>-->
     
-    <rule ref="Generic.Commenting.Todo"/>
-    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+    <rule ref="Generic.Commenting.Todo" />
+    <rule ref="Generic.ControlStructures.InlineControlStructure" />
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement" />
+    <rule ref="Generic.Formatting.SpaceAfterCast" />
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName" />
+    <rule ref="Generic.PHP.DisallowShortOpenTag" />
+    <rule ref="Zend.Files.ClosingTag" />
     
     <rule ref="Generic.Commenting.Todo.CommentFound">
         <message>Please review this TODO comment: %s</message>
         <severity>2</severity>
-    </rule>
-    
-    <rule ref="Internal.NoCodeFound">
-        <severity>0</severity>
     </rule>
 </ruleset>
