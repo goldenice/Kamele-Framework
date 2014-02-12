@@ -1,26 +1,22 @@
-KAMELE LICENSE V1.0
+ Copyright (c) 2014 Rick Lubbers
 
-Terms and Conditions
+ Permission is hereby granted, free of charge, to any person
+ obtaining a copy of this software and associated documentation
+ files (the "Software"), to deal in the Software without
+ restriction, including without limitation the rights to use,
+ copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following
+ conditions:
 
-0. DEFINITIONS
-"This license" refers to Kamele License version 1.0.
-"Copyright" also means copyright-like laws that apply to other kinds of works, such as semiconductor masks.
-"The Application"  refers to any copyrightable work licensed under this License. Each licensee is addressed as "you". "Licensees" and "recipients" may be individuals or organizations.
-To "modify" a work means to copy from or adapt all or part of the work in a fashion requiring copyright permission, other than the making of an exact copy. The resulting work is called a "modified version" of the earlier work or a work "based on" the earlier work.
-To "distribute" means transferring the work or a copy of the work from one person or organization to another.
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
 
-1. BASIC PERMISSIONS
-You have permission to run an unmodified copy of this Application
-You have permission to modify The Application, but not to distribute it under the name Kamele Framework or Kamele.
-You have permission to modify The Application, and to distribute it under any other name than Kamele Framework or Kamele.
-You have permission to use The Application in commercial software
-You have permission to use The Application in non-commercial software
-
-2. CONSEQUENCES
-If you void the permissions given above and you do the things explicitly and implicitly forbidden in the paragraph above you may no longer use The Application and may no longer have a copy of it in your possession.
-That is, unless the original authors of The Application has given explicit instructions to do otherwise.
-You may be punished by local law enforcement by ignoring permissions above. Punishment will be according to local law.
-
-3. NO WARRANTY
-The makers or contributors of The Application are in no way responsible for damage or problems that may occur because of the usage of The Application
-There is no warranty whatsoever. No warranty is assigned explicit or implicit in any way.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ OTHER DEALINGS IN THE SOFTWARE.
