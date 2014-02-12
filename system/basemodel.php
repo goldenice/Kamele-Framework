@@ -9,6 +9,6 @@ abstract class Basemodel {
     function __construct() {
         $this->db = \System\Database::getInstance();
         $this->models = new \System\Models;
-        $this->events = new \System\Events;
+        $this->events = \System\Events::getInstance();
     }   
 }

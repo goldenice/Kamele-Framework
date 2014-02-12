@@ -11,6 +11,6 @@ abstract class Baseservice {
     	$this->db = \System\Database::getInstance();
     	$this->models = new \System\Models;
         $this->services = new \System\Services;
-        $this->events = new \System\Events;
+        $this->events = \System\Events::getInstance();
     }
 }
