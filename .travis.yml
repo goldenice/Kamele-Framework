@@ -16,3 +16,4 @@ before_script:
        
 script:
   - phpcs --standard=phpcs_ruleset.xml .
+  - php index.php
