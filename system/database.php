@@ -35,8 +35,10 @@ class Database extends Singleton {
     }
 	
 	function mysqlError($input = null) {
-		if ($input != null) return $input->errorInfo();
-        else return $this->handler->errorInfo();
+		if ($input != null) {
+            return $input->errorInfo();
+		}
+        return $this->handler->errorInfo();
 	}
     
     function safeQuery($query, $input = array()) {
