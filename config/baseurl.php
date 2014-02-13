@@ -1,2 +1,2 @@
 <?php
-define('BASEURL', 'http://example.com/');
+define('BASEURL', 'http://localhost/~waldirbj/Projetos/Kamele-Framework/');

@@ -8,24 +8,34 @@
  * 04 February 2014
  */
 
-// Load config files
+// Define the run mode.
+define('MODE', 'development');
+
+if (defined('MODE')) {
+	switch (MODE) {
+		case 'development':
+			error_reporting(E_ALL);
+		break;
+	
+		case 'testing':
+		case 'production':
+			error_reporting(0);
+		break;
+
+		default:
+			exit('The application environment is not set correctly.');
+	}
+}
+
+// Define the config directory.
 $configdir = 'config';
+
 $cfg = opendir($configdir);
 while ($item = readdir($cfg)) {
     $ext = explode('.', $item);
     if (end($ext) == 'php') {
         require($configdir.'/'.$item);
     }
-}
-
-// Make sure errors get displayed if we are in development mode
-if (DEVELOPMENT == true) {  
-    ini_set('display_errors', '1');
-    error_reporting(E_ALL ^ E_NOTICE);
-}
-else {
-    ini_set('display_errors', '1'); // It may seem weird, but it indeed is 1!
-    error_reporting(0);
 }
 
 // Make sure we don't get headers erroring all over the place
@@ -40,6 +50,3 @@ require_once 'system/router.php';
 // Fire up the router, and start the rest of the loading procedure.
 // It's not like we're going to do more stuff in index.php
 new \System\Router;
-
-// Exit the nice way. I guess.
-exit(0);

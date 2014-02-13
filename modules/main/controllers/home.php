@@ -2,7 +2,7 @@
 namespace Modules\Main\Controllers;
 
 class Home extends \System\Basecontroller {
-    function index($arg = null) {
+    function index($arg = null) {		
         $layout = new \System\Layout('modules/main/views/home');
         
         $this->events->addListener('pageDone', '\Modules\Main\Controllers\Home::displayFooter');

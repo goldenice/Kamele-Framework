@@ -14,10 +14,18 @@ final class Router {
         spl_autoload_register('\System\Router::autoloader');
         
         // Fire up the actual routing
-        $this->route($_GET['url']);
+		// PHP_SELF always returns the script index.php file itself.
+		$this->route($_SERVER['PHP_SELF']);
     }
     
     function route($uri) {
+		$arguments = explode('index.php', $uri);
+		if (isset($arguments[1])) {
+			$uri = $arguments[1];
+		} else {
+			$uri = '/';
+		}
+		
         // Split the url into several vars
         if (substr($uri, -1) == '/') {
             $url = substr($uri, 0, (strlen($uri)-1));
@@ -32,18 +40,25 @@ final class Router {
             $url = $uri;
         }
         $url = explode('/', trim($url));
-
+		
         // Determine which module and controller to load
-        if ($url[0] == 'index.php' or $url[0] == '') {
+        if ($url[0] == '') {
             $class = '\Modules\Main\Controllers\Home';
         }
-        else {  
+        else {
+			// Sets the default controller to "Home" if it's not set.
+			if (!isset($url[1])) {
+				$url[1] = 'Home';
+			}
+			
             $class = '\Modules\\'.ucfirst($url[0]).'\Controllers\\'.ucfirst($url[1]);
             if (!class_exists($class, true)) {
-                array_unshift($url, 'Main');
+                array_unshift($url, 'Home');
             }
+			
             $class = '\Modules\\'.ucfirst($url[0]).'\Controllers\\'.ucfirst($url[1]);
         }
+		
 
         // Check if we should use a custom method
         if (sizeOf($url) > 2) {
@@ -61,7 +76,7 @@ final class Router {
             $arg = array_values($url);
         }
         else {
-            $arg == null;
+            $arg = null;
         }
 
         // Create controller
