@@ -42,6 +42,7 @@ final class Router {
         $url = explode('/', trim($url));
 		
         // Determine which module and controller to load
+		// no controller, module or method, defaults to main\home
         if ($url[0] == '') {
             $class = '\Modules\Main\Controllers\Home';
         }
@@ -77,7 +78,7 @@ final class Router {
         }
         else {
             // Handle nice error thingey or something
-            die('Fatal error: method not found');
+            die('Fatal error: method not found.');
         }
     }
     
