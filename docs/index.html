@@ -102,18 +102,18 @@ class Example extends \System\Basecontroller {
             <hr />
             
             <h2 id="routing">Routing</h2>
-            <p>Routing in Kamele is done automatically. If configured right (see .htaccess) the webserver should rewrite URL's to index.php, which calls the router. Below is a scheme of what URL routes where.
+            <p>Routing in Kamele is done automatically. Below is a scheme of what URL routes where.
             <table>
                 <tr><td>URL</td><td>Class</td><td>Function</td></tr>
-                <tr><td>example.com</td><td>\Application\Controller\Home</td><td>index()</td></tr>
-                <tr><td>example.com/home</td><td>\Modules\Main\Controllers\Home</td><td>index()</td></tr>
-                <tr><td>example.com/home/index</td><td>\Modules\Main\Controllers\Home</td><td>index()</td></tr>
-                <tr><td>example.com/user</td><td>\Modules\User\Controllers\Home</td><td>index()</td></tr>
-                <tr><td>example.com/user/basic</td><td>\Modules\User\Controllers\Basic</td><td>index()</td></tr>
-                <tr><td>example.com/user/basic/login</td><td>\Modules\User\Controllers\Basic</td><td>login()</td></tr>
-                <tr><td>example.com/user/view/page/40/2</td><td>\Modules\User\Controllers\View</td><td>page( $arg = array(40, 2) )</td></tr>
+                <tr><td>example.com/index.php</td><td>\Application\Controller\Home</td><td>index()</td></tr>
+                <tr><td>example.com/index.php/home</td><td>\Modules\Main\Controllers\Home</td><td>index()</td></tr>
+                <tr><td>example.com/index.php/home/index</td><td>\Modules\Main\Controllers\Home</td><td>index()</td></tr>
+                <tr><td>example.com/index.php/user</td><td>\Modules\Main\Controllers\User\Home</td><td>index()</td></tr>
+                <tr><td>example.com/index.php/user/basic</td><td>\Modules\User\Controllers\Basic</td><td>index()</td></tr>
+                <tr><td>example.com/index.php/user/basic/login</td><td>\Modules\User\Controllers\Basic</td><td>login()</td></tr>
+                <tr><td>example.com/index.php/user/view/page/40/2</td><td>\Modules\User\Controllers\View</td><td>page( $arg = array(40, 2) )</td></tr>
             </table><br />
-            This table is pretty self-explainatory. The first part of the URL defines the module, the second part the controller, the third part the function, and the parts after that are arguments. If the module requested does not exist, then the routing will default to the module Main.
+            This table is pretty self-explainatory. The first part of the URL defines the module, the second part the controller, the third part the function, and the parts after that are arguments. If the module requested does not exist, then the routing will default to the module Main. If no method name is set, it defaults to Home.
             </p>
             
             <hr />
