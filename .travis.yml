@@ -10,6 +10,9 @@ branches:
     - master
 
 before_script:
+  - sudo apt-get update
+  - sudo apt-get install php-pear
+  - pear install PHP_CodeSniffer
   - phpenv rehash
        
 script:
