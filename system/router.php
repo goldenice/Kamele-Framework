@@ -50,7 +50,6 @@ final class Router {
 			if (!isset($url[1])) $url[1] = 'Home';
             $class = '\Modules\\'.ucfirst($url[0]).'\Controllers\\'.ucfirst($url[1]);
         }
-		
 
         // Check if we should use a custom method
         if (sizeOf($url) > 2) {
