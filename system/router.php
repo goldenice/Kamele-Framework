@@ -48,7 +48,9 @@ final class Router {
         }
         else {
 			// Sets the default controller to "Home" if it's not set.
-			if (!isset($url[1])) $url[1] = 'Home';
+			if (!isset($url[1])) { 
+                $url[1] = 'Home';
+			}
             $class = '\Modules\\'.ucfirst($url[0]).'\Controllers\\'.ucfirst($url[1]);
         }
 
