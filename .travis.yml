@@ -10,10 +10,6 @@ branches:
     - master
 
 before_script:
-  - sudo apt-get update
-  - sudo apt-get install php-pear
-  - pear channel-discover pear.phpqatools.org
-  - pear install -f phpqatools/phpqatools
   - phpenv rehash
        
 script:
