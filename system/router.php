@@ -15,7 +15,8 @@ final class Router {
         
         // Fire up the actual routing
 		// PHP_SELF always returns the script index.php file itself.
-		$this->route($_SERVER['PHP_SELF']);
+        // So we use REQUEST_URI, which returns the correct route, with the $1 here: example.com/index.php/$1
+		$this->route($_SERVER['REQUEST_URI']);
     }
     
     function route($uri) {
