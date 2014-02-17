@@ -85,9 +85,13 @@ final class Router {
         }
     }
     
-    static function redirect($uri) {
+    static function redirect($uri, $statuscode = 307) {
+        $statusstr = array(301 => 'Moved Permanently', 302 => 'Found', 307 => 'Temporary Redirect');
+        if (isset($statusstr[$statuscode])) {
+            header('HTTP/1.1 '.$statuscode.' '.$statusstr[$statuscode]);
+        }
         header('Location: '.BASEURL.$uri);
-        exit();
+        exit(0);
     }
     
     static function autoloader($classname) {
