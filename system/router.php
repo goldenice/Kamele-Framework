@@ -9,14 +9,34 @@
 namespace System;
 
 final class Router {
+    private $mode;      // CLI or browser
+    
     function __construct() {
         // Register the class autoloader
         spl_autoload_register('\System\Router::autoloader');
         
+        // Check for the correct execution mode
+        if (PHP_SAPI == 'cli') {
+            $this->mode = 'cli';
+        }
+        else {
+            $this->mode = 'browser';
+        }
+        
         // Fire up the actual routing
-		// PHP_SELF always returns the script index.php file itself.
-        // So we use REQUEST_URI, which returns the correct route, with the $1 here: example.com/index.php/$1
-		$this->route($_SERVER['REQUEST_URI']);
+        // If called with CLI, use argument 1 for routing, or else
+        // we use REQUEST_URI, which returns the correct route, with the $1 here: example.com/index.php/$1
+		if ($this->mode == 'cli') {
+            if (isset($_SERVER['argv'][1])) {
+    	        $this->route($_SERVER['argv'][0].'/'.$_SERVER['argv'][1]);    
+            }
+            else {
+                $this->route($_SERVER['argv'][0]);      // Default main/home/index() route
+            }
+		}
+        else {
+            $this->route($_SERVER['REQUEST_URI']);
+        }    
     }
     
     function route($uri) {
