@@ -28,6 +28,7 @@
                     </ul>
                 </li>
                 <li><a href="#routing">Routing</a></li>
+                <li><a href="#cliusage">CLI usage</a>
                 <li><a href="#contributing">Contributing</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ol>
@@ -115,6 +116,17 @@ class Example extends \System\Basecontroller {
             </table><br />
             This table is pretty self-explainatory. The first part of the URL defines the module, the second part the controller, the third part the function, and the parts after that are arguments. If the module requested does not exist, then the routing will default to the module Main. If no method name is set, it defaults to Home.
             </p>
+            
+            <hr />
+            
+            <h2 id="cliusage">CLI usage</h2>
+            <p>It is possible in Kamele to test your script over the command line. That is extremely useful for automated testing procedures. Instead of the REQUEST_URI, the routing will use the first argument given. If no argument is given, the default route is assumed. Furthermore, routing over the command line is the same as over HTTP(S).</p>
+            <p>Examples of valid Kamele CLI calls:</p>
+            <pre class="code">php index.php
+php index.php main/home
+php index.php main/home/
+php index.php main/home/index/404/
+            </pre>
             
             <hr />
             
