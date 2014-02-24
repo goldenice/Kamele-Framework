@@ -18,8 +18,13 @@ class Events extends \System\Singleton {
         return $data;
     }
     
-    function addListener($event, $function) {
+    function addListener($event, $function, $persistent = false) {
+        // Make sure the event does not exist in the array of listeners
+        $this->deleteListener($event, $function);
+        
+        // Then (re-)add the listener to the array
         $this->listeners[$event][] = $function;
+        
         return true;
     }
     
