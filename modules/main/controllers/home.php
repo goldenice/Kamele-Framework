@@ -19,4 +19,8 @@ class Home extends \System\Basecontroller {
     static function displayFooter(&$data = null) {
         echo 'Cool footer here. Event works :D';
     }
+    
+    static function systemStart() {
+        echo 'This is an event that runs because of static listeners. Awesome stuff.';
+    }
 }

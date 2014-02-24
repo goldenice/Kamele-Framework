@@ -1,0 +1,6 @@
+[
+    {
+        "event": "system_start",
+        "listener": "\\Modules\\Main\\Controllers\\Home::systemStart"
+    }
+]

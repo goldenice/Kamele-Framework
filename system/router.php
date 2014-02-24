@@ -10,6 +10,7 @@ namespace System;
 
 final class Router {
     private $mode;      // CLI or browser
+    private $events;    // The \System\Events object
     
     function __construct() {
         // Register the class autoloader
@@ -22,6 +23,10 @@ final class Router {
         else {
             $this->mode = 'browser';
         }
+        
+        // Trigger the system_start event
+        $this->events = \System\Events::getInstance();
+        $this->events->fireEvent('system_start');
         
         // Fire up the actual routing
         // If called with CLI, use argument 1 for routing, or else
@@ -36,7 +41,9 @@ final class Router {
 		}
         else {
             $this->route($_SERVER['REQUEST_URI']);
-        }    
+        }
+        
+        $this->events->fireEvent('system_stop');
     }
     
     function route($uri) {
@@ -74,6 +81,9 @@ final class Router {
 			}
             $class = '\Modules\\'.ucfirst($url[0]).'\Controllers\\'.ucfirst($url[1]);
         }
+        
+        // Fire router: class determined event
+        $this->events->fireEvent('router_class_determined', $class);
 
         // Check if we should use a custom method
         if (sizeOf($url) > 2) {
@@ -82,7 +92,10 @@ final class Router {
         else {
             $method = 'index';
         }
-
+        
+        // Fire router: method determined event
+        $this->events->fireEvent('router_method_determined', $method);
+        
         // Check if we should give any other arguments
         if (sizeOf($url) > 3) {
             unset($url[0]);
@@ -93,14 +106,20 @@ final class Router {
         else {
             $arg = null;
         }
-
+        
+        // Fire router: arguments determined event
+        $this->events->fireEvent('router_args_determined', $arg);
+        
         // Create controller
         $controller = new $class;
         if (method_exists($controller, $method)) { 
+            $this->events->fireEvent('router_pre_controller');
             $controller->$method($arg);     // Actual execution of the desired controller function
+            $this->events->fireEvent('router_post_controller');
         }
         else {
             // Handle nice error thingey or something
+            $this->events->fireEvent('router_invalid_method');
             die('Fatal error: method not found.');
         }
     }
