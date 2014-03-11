@@ -49,7 +49,7 @@ final class Router {
     function route($uri) {
 		$arguments = explode('index.php', $uri);
 		if (isset($arguments[1])) {
-			$uri = $arguments[1];
+			$uri = ltrim($arguments[1], '?');
 		} else {
 			$uri = '/';
 		}
