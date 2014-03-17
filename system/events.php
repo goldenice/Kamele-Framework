@@ -43,8 +43,8 @@ class Events extends \System\Singleton {
     function fireEvent($name, &$data = null) {
         if (!empty($this->listeners[$name])) {
             foreach ($this->listeners[$name] as $k=>$v) {
-                if ($data != null) {
-                    call_user_func($v, $data);
+                if ($data !== null) {
+                    call_user_func_array($v, array(&$data));
                 }
                 else { 
                     call_user_func($v);
