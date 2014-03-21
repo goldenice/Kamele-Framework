@@ -1,6 +1,7 @@
 [
     {
         "event": "system_start",
-        "listener": "\\Modules\\Main\\Controllers\\Home::systemStart"
+        "listener": "\\Modules\\Main\\Controllers\\Home::systemStart",
+        "priority": "NORMAL"
     }
 ]

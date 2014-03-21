@@ -94,10 +94,6 @@ class Events extends \System\Singleton {
         return true;
     }
     
-    function debug() {
-        var_dump($this->listeners);
-    }
-    
     // This deletes all listeners with given function, no matter what priority!
     function deleteListener($event, $function) {
         if (!empty($this->listeners[$event])) {
