@@ -4,9 +4,7 @@ namespace Modules\Main\Controllers;
 class Home extends \System\Basecontroller {
     function index($arg = null) {		
         $layout = new \System\Layout('modules/main/views/home');
-        
-        $this->events->addListener('pageDone', '\Modules\Main\Controllers\Home::displayFooter');
-        
+
         $test = $this->loader['\Modules\Main\Models\Example'];
         $content = $test->exampleMethod();
         
@@ -14,10 +12,19 @@ class Home extends \System\Basecontroller {
         
         
         $this->events->fireEvent('pageDone');
+        $this->events->debug();
     }
     
-    static function displayFooter(&$data = null) {
-        echo 'Cool footer here. Event works :D';
+    static function lowPrio(&$data = null) {
+        echo 'Low priority';
+    }
+    
+    static function normalPrio(&$data = null) {
+        echo 'Normal priority';
+    }
+    
+    static function highPrio(&$data = null) {
+        echo 'High priority';
     }
     
     static function systemStart() {
