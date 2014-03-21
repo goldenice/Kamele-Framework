@@ -9,22 +9,6 @@ class Home extends \System\Basecontroller {
         $content = $test->exampleMethod();
         
         $layout->render(array('content'=>$content, 'title'=>'Home'));
-        
-        
-        $this->events->fireEvent('pageDone');
-        $this->events->debug();
-    }
-    
-    static function lowPrio(&$data = null) {
-        echo 'Low priority';
-    }
-    
-    static function normalPrio(&$data = null) {
-        echo 'Normal priority';
-    }
-    
-    static function highPrio(&$data = null) {
-        echo 'High priority';
     }
     
     static function systemStart() {
