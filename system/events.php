@@ -54,7 +54,7 @@ class Events extends \System\Singleton {
         return $data;
     }
     
-    function addListener($event, $function, $persistent = false) {
+    function addListener($event, $function) {
         // Make sure the event does not exist in the array of listeners
         $this->deleteListener($event, $function);
         
