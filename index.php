@@ -39,6 +39,9 @@ while ($item = readdir($cfg)) {
     }
 }
 
+// Set up exception handler
+set_exception_handler('\System\Exceptions::displayException');
+
 // Make sure we don't get headers erroring all over the place
 ob_start();
 
