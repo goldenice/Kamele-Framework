@@ -18,8 +18,9 @@ final class Core {
         // Register the class autoloader
         spl_autoload_register('\System\Router::autoloader');
         
-        // Register exception handler
+        // Register exception and error handlers
         set_exception_handler(array('\System\Exceptions', 'handleException'));
+        set_error_handler(array('\System\Exceptions', 'errorToException'));
         
         // Trigger the system_start event
         $this->events = \System\Events::getInstance();
