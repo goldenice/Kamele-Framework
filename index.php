@@ -31,6 +31,7 @@ if (defined('MODE')) {
 // Define the config directory.
 $configdir = 'config';
 
+// Load config files
 $cfg = opendir($configdir);
 while ($item = readdir($cfg)) {
     $ext = explode('.', $item);
@@ -39,15 +40,9 @@ while ($item = readdir($cfg)) {
     }
 }
 
-// Make sure we don't get headers erroring all over the place
-ob_start();
-
-// And get us an awesome session
-session_start();
-
 // Let us include the router class
-require_once 'system/router.php';
+require_once 'system/core.php';
 
 // Fire up the router, and start the rest of the loading procedure.
 // It's not like we're going to do more stuff in index.php
-new \System\Router;
+new \System\Core;

@@ -13,12 +13,6 @@ final class Router {
     private $events;    // The \System\Events object
     
     function __construct() {
-        // Register the class autoloader
-        spl_autoload_register('\System\Router::autoloader');
-        
-        // Register exception handler
-        set_exception_handler(array('\System\Exceptions', 'handleException'));
-        
         // Check for the correct execution mode
         if (PHP_SAPI == 'cli') {
             $this->mode = 'cli';
@@ -26,10 +20,9 @@ final class Router {
         else {
             $this->mode = 'browser';
         }
-        
-        // Trigger the system_start event
+
+        // Load events object
         $this->events = \System\Events::getInstance();
-        $this->events->fireEvent('system_start');
         
         // Fire up the actual routing
         // If called with CLI, use argument 1 for routing, or else
@@ -45,8 +38,6 @@ final class Router {
         else {
             $this->route($_SERVER['REQUEST_URI']);
         }
-        
-        $this->events->fireEvent('system_stop');
     }
     
     function route($uri) {
