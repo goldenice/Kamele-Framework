@@ -16,6 +16,9 @@ final class Router {
         // Register the class autoloader
         spl_autoload_register('\System\Router::autoloader');
         
+        // Register exception handler
+        set_exception_handler(array('\System\Exceptions', 'handleException'));
+        
         // Check for the correct execution mode
         if (PHP_SAPI == 'cli') {
             $this->mode = 'cli';
