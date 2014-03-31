@@ -1,0 +1,7 @@
+[
+    {
+        "event": "router_all_determined",
+        "listener": "\\Modules\\Routing\\Services\\Reroute::determineNewRoute",
+        "priority": "HIGHEST"
+    }
+]

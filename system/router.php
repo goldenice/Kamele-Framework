@@ -104,6 +104,13 @@ final class Router {
         // Fire router: arguments determined event
         $this->events->fireEvent('router_args_determined', $arg);
         
+        // Fire router: all determined event
+        $route = array($class, $method, $arg);
+        $this->events->fireEvent('router_all_determined', $route);
+        $class = $route[0];
+        $method = $route[1];
+        $arg = $route[2];
+        
         // Create controller
         $controller = new $class;
         if (method_exists($controller, $method)) { 

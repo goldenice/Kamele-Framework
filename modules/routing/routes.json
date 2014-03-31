@@ -1,0 +1,12 @@
+[
+    {
+        "original": { 
+            "controller": "\\Modules\\Routing\\Controllers\\Home", 
+            "method": "index" 
+        },
+        "new": {
+            "controller": "\\Modules\\Main\\Controllers\\Home",
+            "method": "index"
+        }
+    }
+]
