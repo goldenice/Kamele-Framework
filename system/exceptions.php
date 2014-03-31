@@ -12,6 +12,6 @@ class Exceptions extends \System\Singleton {
     }
     
     static function errorToException($num, $str, $file, $line, $context = null) {
-        throw new ErrorException($str, 0, $num, $file, $line);
+        throw new \ErrorException($str, 0, $num, $file, $line);
     }
 }
