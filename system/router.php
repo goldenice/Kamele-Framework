@@ -127,6 +127,7 @@ final class Router {
     
     static function redirect($uri, $statuscode = 307) {
         $statusstr = array(301 => 'Moved Permanently', 302 => 'Found', 307 => 'Temporary Redirect');
+        $this->events->fireEvent('router_redirect', $uri);
         if (isset($statusstr[$statuscode])) {
             header('HTTP/1.1 '.$statuscode.' '.$statusstr[$statuscode]);
         }
