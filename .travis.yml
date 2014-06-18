@@ -8,6 +8,7 @@ php:
 branches:
   only:
     - master
+    - development
 
 before_script:
   - sudo apt-get update
