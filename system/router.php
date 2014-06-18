@@ -1,17 +1,36 @@
 <?php
-/**
- * 
- * System router
- * Loads right classes 'n stuff
- * 
- */
-
 namespace System;
 
+/**
+ * The Router class, handles everything that has to do with correct class-loading
+ * 
+ * @package     Kamele Framework
+ * @subpackage  System
+ * @author      Rick Lubbers <me@ricklubbers.nl>
+ * @since       1.0-alpha
+ */
 final class Router {
-    private $mode;      // CLI or browser
-    private $events;    // The \System\Events object
+    /**
+     * @access  private
+     * @var     string      The environment the script is running in, which is 'cli' or 'browser'
+     */
+    private $mode;
     
+    /**
+     * @access  private
+     * @var     Events      Instance of the Events class
+     */
+    private $events;
+    
+    
+    
+    /**
+     * Constructor
+     * Calls correct routing functions and determines some environment variables
+     * 
+     * @access      public
+     * @return      void
+     */
     function __construct() {
         // Check for the correct execution mode
         if (PHP_SAPI == 'cli') {
@@ -26,7 +45,7 @@ final class Router {
         
         // Fire up the actual routing
         // If called with CLI, use argument 1 for routing, or else
-        // we use REQUEST_URI, which returns the correct route, with the $1 here: example.com/index.php/$1
+        // we use REQUEST_URI, which returns the correct route, with the $1 here: {baseurl}index.php/$1
 		if ($this->mode == 'cli') {
             if (isset($_SERVER['argv'][1])) {
     	        $this->route($_SERVER['argv'][0].'/'.$_SERVER['argv'][1]);    
@@ -40,7 +59,15 @@ final class Router {
         }
     }
     
-    function route($uri) {
+    /**
+     * Routing function
+     * Loads the correct controller
+     * 
+     * @access  private
+     * @param   string      $uri
+     * @return  void
+     */
+    public function route($uri) {
 		$arguments = explode('index.php', $uri);
 		if (isset($arguments[1])) {
 			$uri = ltrim($arguments[1], '?');
@@ -125,7 +152,17 @@ final class Router {
         }
     }
     
-    static function redirect($uri, $statuscode = 307) {
+    /**
+     * Redirect to URI in the current domain
+     * Should be called from controller
+     * WARNING: This function stops execution of the current script!
+     * 
+     * @access  public
+     * @param   string      $uri
+     * @param   int         $statuscode
+     * @return  void
+     */
+    public static function redirect($uri, $statuscode = 307) {
         $statusstr = array(301 => 'Moved Permanently', 302 => 'Found', 307 => 'Temporary Redirect');
         $this->events->fireEvent('router_redirect', $uri);
         if (isset($statusstr[$statuscode])) {
@@ -135,7 +172,14 @@ final class Router {
         exit(0);
     }
     
-    static function autoloader($classname) {
+    /**
+     * Class autoloader function
+     * 
+     * @access  public
+     * @param   string      $classname
+     * @return  boolean
+     */
+    public static function autoloader($classname) {
         // Separate the parts of the whole namespace
         $parts = explode('\\', $classname);
         $name = end($parts);                                            // Get classname
