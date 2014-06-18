@@ -35,6 +35,12 @@ class Events extends \System\Singleton {
         $this->loadModuleListeners();
     }
     
+    /**
+     * Loads listeners.json for every module if that file exists
+     *
+     * @access  public
+     * @return  void
+     */
     private function loadModuleListeners() {
         // Define dir- and filenames
         $moduledir = 'modules';
@@ -70,7 +76,15 @@ class Events extends \System\Singleton {
         }
     }
     
-    function fireEvent($name, &$data = null) {
+    /**
+     * Fires an event, carrying a pointer to a piece of data
+     *
+     * @access  public
+     * @param   string      $name   Name of the event
+     * @param   ?           $data   Pointer to variable of data, optional
+     * @return  ?
+     */
+    public function fireEvent($name, &$data = null) {
         if (!empty($this->listeners[$name])) {
             foreach ($this->listeners[$name] as $k=>$v) {
                 if ($data !== null) {
@@ -84,10 +98,26 @@ class Events extends \System\Singleton {
         return $data;
     }
     
-    function prioStringToInt($priority) {
+    /**
+     * Converts priority-string to a valid integer
+     *
+     * @access  public
+     * @param   string      $priority   Priority
+     * @return  int | void
+     */
+    public function prioStringToInt($priority) {
         return self::$priorities[strtoupper($priority)];
     }
     
+    /**
+     * Adds a listener to the current array of listeners
+     *
+     * @access  public
+     * @param   string      $event      Name of the event
+     * @param   array       $function   Class and method to execute when event is fired
+     * @param   string|int  $priority   The priority when there is more than one listener listening on this event
+     * @return  boolean
+     */
     function addListener($event, $function, $priority = 'NORMAL') {
         $priority = $this->prioStringToInt($priority);
         
@@ -118,7 +148,14 @@ class Events extends \System\Singleton {
         return true;
     }
     
-    // This deletes all listeners with given function, no matter what priority!
+    /**
+     * Deletes a listener for a given event and a given function
+     * 
+     * @access  public
+     * @param   string      $event      The event the listeners listenes to
+     * @param   array       $function   The function to delete as listener
+     * @return  boolean
+     */
     function deleteListener($event, $function) {
         if (!empty($this->listeners[$event])) {
             foreach ($this->listeners[$event] as $k=>$v) {
