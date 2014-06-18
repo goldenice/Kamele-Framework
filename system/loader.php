@@ -17,7 +17,6 @@ final class Loader extends Singleton implements \ArrayAccess {
     }
     
     final function offsetGet($name) {
-        //$name = strtolower($name);
         if (!isset($this->saved[$name])) {
             if (class_exists($name)) {
                 if (is_subclass_of($name, '\System\Singleton')) {
