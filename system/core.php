@@ -1,6 +1,15 @@
 <?php
 namespace System;
 
+/**
+ * Core class
+ * Handles some basic functions, like autoloader registering and output buffering
+ * 
+ * @package     Kamele Framework
+ * @subpackage  System
+ * @author      Rick Lubbers <me@ricklubbers.nl>
+ * @since       1.2
+ */
 final class Core {
     private $events;
     private $router;

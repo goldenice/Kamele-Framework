@@ -1,11 +1,35 @@
 <?php
 namespace System;
 
+/**
+ * Events class
+ * Handles event firing and listeners
+ * 
+ * @package     Kamele Framework
+ * @subpackage  System
+ * @author      Rick Lubbers <me@ricklubbers.nl>
+ * @since       1.0-beta
+ */
 class Events extends \System\Singleton {
+    /** 
+     * @access  private
+     * @var     array       Multi-dimensional array which contains all listeners
+     */
     private $listeners;
-    static public $priorities = array('LOWEST'=>10, 'LOW'=>25, 'NORMAL'=>50, 'HIGH'=>75, 'HIGHEST'=>90, 'MONITOR'=>100);        // The numbers are defined as a form of percentages
     
-    function __construct() {
+    /**
+     * @access  public
+     * @var     string[]    The numbers are defined as a form of percentages
+     */
+    static public $priorities = array('LOWEST'=>10, 'LOW'=>25, 'NORMAL'=>50, 'HIGH'=>75, 'HIGHEST'=>90, 'MONITOR'=>100);        
+    
+    /**
+     * Constructor function
+     * 
+     * @access  public
+     * @return  void
+     */
+    public function __construct() {
         parent::__construct();
         
         $this->loadModuleListeners();
