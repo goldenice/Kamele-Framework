@@ -27,6 +27,7 @@ final class Loader extends Singleton implements \ArrayAccess {
                 }
             }
             else {
+                throw new Exception('Could not find class '.$name);
                 return null;
             }
         }
