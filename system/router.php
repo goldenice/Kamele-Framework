@@ -9,6 +9,7 @@ namespace System;
  * @author      Rick Lubbers <me@ricklubbers.nl>
  * @author      Waldir Bertazzi <waldirbj@gmail.com>
  * @since       1.0-alpha
+ * @final
  */
 final class Router {
     /**

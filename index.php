@@ -1,11 +1,16 @@
 <?php
 /**
- * Kamele Framework v1.0
+ * Kamele Framework 1.x
  * 
- * @author      Rick Lubbers            <me@ricklubbers.nl>
- * @license     Kamele License v1.0     see LICENSE.txt
+ * @package     Kamele Framework
+ * @license     MIT License, see LICENSE.txt
  * 
- * 04 February 2014
+ * Contributors:
+ * @author      Rick Lubbers <me@ricklubbers.nl>            (Initial author)
+ * @author      Waldir Bertazzi <waldirbj@gmail.com>
+ * 
+ * Last updated this comment at:
+ * 19 June 2014
  */
 
 // Define the run mode.

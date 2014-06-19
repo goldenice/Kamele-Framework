@@ -9,12 +9,28 @@ namespace System;
  * @subpackage  System
  * @author      Rick Lubbers <me@ricklubbers.nl>
  * @since       1.2
+ * @final
  */
 final class Core {
+    /**
+     * @access  private
+     * @var     Events-object       Instance of the Events class
+     */
     private $events;
+    
+    /**
+     * @access  private
+     * @var     Router-object       Instance of the Router class
+     */
     private $router;
     
-    function __construct() {
+    /**
+     * Constructor function, loads the system
+     * 
+     * @access  public
+     * @return  void
+     */
+    public function __construct() {
         // Make sure we don't get headers erroring all over the place
         ob_start();
 
@@ -39,7 +55,13 @@ final class Core {
         $this->router = new \System\Router;
     }
     
-    function __destruct() {
+    /**
+     * Destruction function, triggers event so modules can issue a proper internal shutdown
+     * 
+     * @access  public
+     * @return  void
+     */
+    public function __destruct() {
         // Trigger system_stop event
         $this->events->fireEvent('system_stop');
     }
