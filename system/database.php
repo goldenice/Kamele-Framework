@@ -94,12 +94,28 @@ class Database extends Singleton {
 	
     /**
      * Returns the latest database-error
+     * WARNING: Deprecated because name is mysql-specific, and this is a general purpose databaseclass
+     * 
+     * @access  public
+     * @param   ?               $input      Get error from another PDO object
+     * @return  string
+     * @deprecated
+     */
+	public function mysqlError($input = null) {
+		if ($input != null) {
+            return $input->errorInfo();
+		}
+        return $this->handler->errorInfo();
+	}
+    
+    /**
+     * Returns the latest database-error
      * 
      * @access  public
      * @param   ?               $input      Get error from another PDO object
      * @return  string
      */
-	public function mysqlError($input = null) {
+    public function lastError($input = null) {
 		if ($input != null) {
             return $input->errorInfo();
 		}
