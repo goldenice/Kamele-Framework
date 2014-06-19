@@ -10,7 +10,7 @@ namespace System;
  * @author      Rick Lubbers <me@ricklubbers.nl>
  * @since       1.0-beta
  */
-class Events extends \System\Singleton {
+class Events extends Singleton {
     /** 
      * @access  private
      * @var     array       Multi-dimensional array which contains all listeners

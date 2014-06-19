@@ -48,11 +48,11 @@ final class Core {
         set_error_handler(array('\System\Exceptions', 'errorToException'));
         
         // Trigger the system_start event
-        $this->events = \System\Events::getInstance();
+        $this->events = Events::getInstance();
         $this->events->fireEvent('system_start');
         
         // Create router object
-        $this->router = new \System\Router;
+        $this->router = new Router;
     }
     
     /**

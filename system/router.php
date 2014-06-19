@@ -43,7 +43,7 @@ final class Router {
         }
 
         // Load events object
-        $this->events = \System\Events::getInstance();
+        $this->events = Events::getInstance();
         
         // Fire up the actual routing
         // If called with CLI, use argument 1 for routing, or else

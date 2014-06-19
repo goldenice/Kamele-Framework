@@ -9,7 +9,7 @@ namespace System;
  * @author      Rick Lubbers <me@ricklubbers.nl>
  * @since       1.2
  */
-class Exceptions extends \System\Singleton {
+class Exceptions extends Singleton {
     
     /**
      * Handles exceptions
@@ -19,7 +19,7 @@ class Exceptions extends \System\Singleton {
      * @return  void
      */
     static public function handleException($e) {
-        $event = \System\Events::getInstance();
+        $event = Events::getInstance();
         $event->fireEvent('exception_caught', $e);
         if (!empty($e)) {
             echo "\n<br />".'Exception: '.$e->getMessage();
