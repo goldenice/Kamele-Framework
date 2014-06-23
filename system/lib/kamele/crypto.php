@@ -95,10 +95,18 @@ final static class Crypto {
      * @static
      */
     public static hash_pbkdf2_safe($input, $salt, $length = null, $iterations = null, $algorithm = null, $applypepper = null) {
-        if ($length === null || is_nan($length)) $length = ;
-        if ($iterations === null || is_nan($iterations)) $iterations = self::$length;
-        if ($algorithm === null || !in_array($algorithm, hash_algos())) $algorithm = self::$algorithm;
-        if ($applypepper !== false && $applypepper !== true) $applypepper = self::$applypepper;
+        if ($length === null || is_nan($length)) {
+            $length = self::$length;
+        }
+        if ($iterations === null || is_nan($iterations)) {
+            $iterations = self::$iterations;
+        }
+        if ($algorithm === null || !in_array($algorithm, hash_algos())) {
+            $algorithm = self::$algorithm;
+        }
+        if ($applypepper !== false && $applypepper !== true) {
+            $applypepper = self::$applypepper;
+        }
         if ($applypepper === true) { 
             $pepper = self::$pepper;
         }
@@ -148,7 +156,9 @@ final static class Crypto {
      */
     public static function rand_number($min, $max) {
         $range = $max - $min;
-        if ($range == 0) return $min;
+        if ($range == 0) {
+            return $min;
+        }
         $log = log($range, 2);
         $bytes = (int) ($log / 8) + 1;
         $bits = (int) $log + 1;
