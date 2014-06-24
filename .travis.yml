@@ -14,7 +14,7 @@ branches:
 before_script:
   - phpenv rehash
   - wget http://pear2.php.net/pyrus.phar -O pyrus.phar
-  - php pyrus.phar install pear/PHP_CodeSniffer
+  - sudo php pyrus.phar install pear/PHP_CodeSniffer
        
 script:
   - phpcs --standard=phpcs_ruleset.xml .
