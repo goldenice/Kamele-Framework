@@ -165,7 +165,17 @@ final static class Crypto {
         $bits = (int) $log + 1;
         $filter = (int) (1 << $bits) - 1;
         do {
-            $rnd = bindec(openssl_random_pseudo_bytes($bytes, $s)));
+            $secure = false;
+            while ($secure == false) {
+                $rnd = bindec(openssl_random_pseudo_bytes($bytes, $secure));
+                if ($secure == false) {
+                    $counter++;
+                    if ($counter >= 3) {
+                        throw new \Exception('Random number generated is not cryptographically secure!');
+                        return null;
+                    }
+                }
+            }
             $rnd = $rnd & $filter;
         } while ($rnd >= $range);
         return $min + $rnd;
@@ -181,10 +191,16 @@ final static class Crypto {
      */
     public static function rand_string($length) {
         $secure = false;
-        $output = bin2hex(openssl_random_pseudo_bytes($length, $secure));
-        if ($secure == false) {
-            throw new \Exception('Random string generated is not cryptographically secure!');
-            return null;
+        $counter = 0;
+        while ($secure == false) {
+            $output = bin2hex(openssl_random_pseudo_bytes($length, $secure));
+            if ($secure == false) {
+                $counter++;
+                if ($counter >= 3) {
+                    throw new \Exception('Random string generated is not cryptographically secure!');
+                    return null;
+                }
+            }
         }
         return $output;
     }
