@@ -37,7 +37,8 @@ final static class Crypto {
      * @access  public
      * @static
      * @var     int     Number of iterations to use for PBKDF2
-     public static $iterations      = 1000000;
+     */
+    public static $iterations      = 1000000;
     
     /** 
      * Do not change this value unless the sha256 algorithm has been proved insecure!
