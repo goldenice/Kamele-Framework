@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - hhvm
   - 5.5
   - 5.4
   - 5.3
@@ -12,9 +11,10 @@ branches:
     - development
 
 before_script:
+  - sudo apt-get update
+  - sudo apt-get install php-pear
+  - pear install PHP_CodeSniffer
   - phpenv rehash
-  - wget http://pear2.php.net/pyrus.phar -O pyrus.phar
-  - sudo php pyrus.phar install pear/PHP_CodeSniffer
        
 script:
   - phpcs --standard=phpcs_ruleset.xml .
