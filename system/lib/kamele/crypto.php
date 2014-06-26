@@ -125,7 +125,7 @@ final static class Crypto {
     /**
      * Internal replacement for the hash_pbkdf2 function builtin in PHP 5.5 and higher
      * 
-     * @access      privae
+     * @access      private
      * @param       string      $a              The algorithm to use
      * @param       string      $password       The string to hash
      * @param       string      $salt           The salt to use
