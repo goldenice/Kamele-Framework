@@ -26,7 +26,7 @@ namespace System\Lib\Kamele;
  * @author      Rick Lubbers <me@ricklubbers.nl>
  * @since       1.3
  */
-final static class Crypto {
+final class Crypto {
     
     /******************* VARIABLES TO REVIEW ARE FOUND BELOW THIS LINE *******************/
     
@@ -47,7 +47,7 @@ final static class Crypto {
      * @static
      * @var     string      Hashing algorithm to use
      */
-    public static $algorithm        = 'sha256'
+    public static $algorithm        = 'sha256';
     
     /**
      * Apply pepper
@@ -95,7 +95,7 @@ final static class Crypto {
      * @return      string|null
      * @static
      */
-    public static hash_pbkdf2_safe($input, $salt, $length = null, $iterations = null, $algorithm = null, $applypepper = null) {
+    public static function hash_pbkdf2_safe($input, $salt, $length = null, $iterations = null, $algorithm = null, $applypepper = null) {
         if ($length === null || is_nan($length)) {
             $length = self::$length;
         }
