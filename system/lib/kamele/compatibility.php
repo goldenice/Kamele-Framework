@@ -411,5 +411,5 @@ class Compatibility {
         return substr(($raw_output) ? $output : bin2hex($output), 0, $length);
     }
     
-    
+    // TODO: add some more functions, mostly those found here: http://nl1.php.net/manual/en/migration55.new-functions.php
 }
