@@ -47,7 +47,9 @@ class Compatibility {
      * @return  boolean
      */
     public static function boolvar($var) {
-        if ($var == true) return true;
+        if ($var == true) {
+        	return true;
+        }
         return false;
     }
     
@@ -354,9 +356,9 @@ class Compatibility {
      */
     public static function hash_pbkdf2($algo, $password, $salt, $iterations, $length = 0, $raw_output = false) {
         // Prep input arguments
-        $algo       = (string)  isset($algo) ? $algo : null;
-        $password   = (string)  isset($password) ? $password : null;
-        $salt       = (string)  isset($salt) ? $salt : null;
+        $algo       = (string) isset($algo) ? $algo : null;
+        $password   = (string) isset($password) ? $password : null;
+        $salt       = (string) isset($salt) ? $salt : null;
         $iterations = (integer) isset($iterations) ? $iterations : null;
         $length     = (integer) $length;
         $raw_output = (boolean) $raw_output;
