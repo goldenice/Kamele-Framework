@@ -21,7 +21,7 @@ class Database extends Singleton {
      * @access  private
      * @var     string          Defines the databasetype for PDO. Perhaps someday this will be an option
      */
-    private $dbtype = 'mysql';
+    private $dbtype;
     
     /**
      * Constructor function, accepts custom arguments for DB connect-info
@@ -33,7 +33,8 @@ class Database extends Singleton {
      * @param   string      $name       The name of the database to connect to
      * @return  boolean
      */
-    public function __construct($host = DB_HOST, $user = DB_USER, $pass = DB_PASS, $name = DB_NAME) {
+    public function __construct($host = DB_HOST, $user = DB_USER, $pass = DB_PASS, $name = DB_NAME, $type = DB_TYPE) {
+        $this->dbtype = $type;
         $this->handler = new PDO($this->dbtype.':dbname='.$name.';host='.$host, $user, $pass);
         $this->handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
         if ($this->handler == null or $this->handler == false) {
