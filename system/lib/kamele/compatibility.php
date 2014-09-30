@@ -5,6 +5,7 @@ namespace System\Lib\Kamele;
  * Compatibility library
  * 
  * Implementations of native PHP 5.5 functions for PHP 5.3 and up
+ * The core functions mentioned here are implemented: http://nl1.php.net/manual/en/migration55.new-functions.php
  * 
  * Contains parts of https://github.com/ircmaxell/password_compat
  * 
@@ -410,6 +411,4 @@ class Compatibility {
         // of that decision, but it's emulated here for full compatibility.
         return substr(($raw_output) ? $output : bin2hex($output), 0, $length);
     }
-    
-    // TODO: add some more functions, mostly those found here: http://nl1.php.net/manual/en/migration55.new-functions.php
 }
