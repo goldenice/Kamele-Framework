@@ -26,6 +26,12 @@ final class Core {
     private $router;
     
     /**
+     * @access  private
+     * @var     Performance-object	Instance of the Performance class
+     */
+    private $performance;
+    
+    /**
      * Constructor function, loads the system
      * 
      * @access  public
@@ -43,6 +49,10 @@ final class Core {
         
         // Register the class autoloader
         spl_autoload_register('\System\Router::autoloader');
+        
+        // Set timestamp in performance class
+        $this->performance = Performance::getInstance();
+        $this->performance->systemStart();
         
         // Register exception and error handlers
         set_exception_handler(array('\System\Exceptions', 'handleException'));

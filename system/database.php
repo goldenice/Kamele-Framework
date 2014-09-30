@@ -25,6 +25,12 @@ class Database extends Singleton {
     private $dbtype;
     
     /**
+     * @access	public
+     * @var		int				Counts the number of queries executed
+     */
+    public $querycount = 0;
+    
+    /**
      * Constructor function, accepts custom arguments for DB connect-info
      * 
      * @access  public
@@ -58,6 +64,7 @@ class Database extends Singleton {
      * @return  PDOStatement-object
      */
     public function query($query) {
+    	$this->querycount++;
         return $this->handler->query($query);
     }
     
@@ -134,6 +141,7 @@ class Database extends Singleton {
      * @return  PDOStatement
      */
     function safeQuery($query, $input = array()) {
+    	$this->querycount++;
         $prep = $this->handler->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         foreach ($input as $k=>$v) {
             $input[':'.$k] = $v;
