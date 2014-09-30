@@ -24,7 +24,7 @@ class Compatibility {
      * @param   mixed       $index_key      Index key to use (optionally)
      * @return  array
      */
-    public static array_column($array, $column_key, $index_key = null) {
+    public static function array_column($array, $column_key, $index_key = null) {
         $return = array();
         foreach ($array as $key=>$value) {
             if (isset($value[$column_key]) == true) {
@@ -45,7 +45,7 @@ class Compatibility {
      * @param   mixed       $var    The variable to get the boolean value for
      * @return  boolean
      */
-    public static boolvar($var) {
+    public static function boolvar($var) {
         if ($var == true) return true;
         return false;
     }
@@ -77,7 +77,7 @@ class Compatibility {
      * @internal
      * @return  void
      */
-    private static fixPasswordConstants() {
+    private static function fixPasswordConstants() {
         if (!defined('PASSWORD_DEFAULT')) {
             define('PASSWORD_BCRYPT', 1);
             define('PASSWORD_DEFAULT', PASSWORD_BCRYPT);
@@ -268,7 +268,7 @@ class Compatibility {
      * @param   string      $hash   The hash to return information about
      * @return  array
      */
-    public static password_get_info($hash) {
+    public static function password_get_info($hash) {
         self::fixPasswordConstants();
         $return = array(
             'algo' => 0,
