@@ -1,5 +1,6 @@
 <?php
 namespace System\Lib\Kamele;
+if (!defined('SYSTEM')) exit('No direct script access allowed');
 
 /**
  * Compatibility library

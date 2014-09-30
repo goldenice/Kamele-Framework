@@ -13,6 +13,9 @@
  * 19 June 2014
  */
 
+// Define system constant
+define('SYSTEM', 'KAMELE1');
+
 // Define the run mode.
 define('MODE', 'development');
 

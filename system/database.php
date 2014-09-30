@@ -1,6 +1,7 @@
 <?php
 namespace System;
 use PDO;
+if (!defined('SYSTEM')) exit('No direct script access allowed');
 
 /**
  * A basic databaseconnection handler, based on PDO

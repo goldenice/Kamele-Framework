@@ -3,7 +3,6 @@
     <description>Coding standard based on Zend with some additions.</description>
     
     <rule ref="Generic.Commenting.Todo" />
-    <rule ref="Generic.ControlStructures.InlineControlStructure" />
     <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement" />
     <rule ref="Generic.Formatting.SpaceAfterCast" />
     <rule ref="Generic.NamingConventions.UpperCaseConstantName" />

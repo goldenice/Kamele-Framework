@@ -1,5 +1,6 @@
 <?php
 namespace System;
+if (!defined('SYSTEM')) exit('No direct script access allowed');
 
 /**
  * Layout class, basic templating system

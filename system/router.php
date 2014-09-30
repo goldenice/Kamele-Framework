@@ -1,5 +1,6 @@
 <?php
 namespace System;
+if (!defined('SYSTEM')) exit('No direct script access allowed');
 
 /**
  * The Router class, handles everything that has to do with correct class-loading

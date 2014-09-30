@@ -1,5 +1,6 @@
 <?php
 namespace System;
+if (!defined('SYSTEM')) exit('No direct script access allowed');
 
 /**
  * If a class extends this class, only one instance can exist of that class at any given time
