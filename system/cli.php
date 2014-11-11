@@ -17,10 +17,16 @@ class Cli extends Singleton {
 	 * List of available commands mapped to functions
 	 * @var		Array
 	 */
-	protected $commands = array(
+	static protected $commands = array(
 		'help' => array(
-				'function' => '\System\Cli::help',
+		        'class'    => '\System\Cli',
+				'function' => 'commandHelp',
 				'helptext' => 'The help-command is meant to help the user on their way. How meta.'
+			),
+		'quit' => array(
+		        'class'    => '\System\Cli',
+				'function' => 'commandQuit',
+				'helptext' => 'Quitting Kamele Interactive Shell, easy and simple.'
 			)
 		);
 	
@@ -30,6 +36,7 @@ class Cli extends Singleton {
 	 * @return  void
 	 */
 	public function interactive() {
+	    $this->output('Kamele Interactive Shell Started');
 		while ($line = trim(fgets(STDIN))) {
 			if ($line == '') continue;
 			$this->interpret($line);
@@ -44,12 +51,13 @@ class Cli extends Singleton {
 	 */
 	protected function interpret($command) {
 		$parts = explode(' ', $command);
-		if (!isset($commands[$parts[0]])) {
+		if (!isset(self::$commands[$parts[0]])) {
 			$this->output('Unknown command');
 			return false;
 		}
 		else {
-			$this->output($commands[$parts[0]]['function']($parts));
+		    $func = self::$commands[$parts[0]]['class'].'::'.self::$commands[$parts[0]]['function'];
+			$this->output(call_user_func_array($func, array(&$parts)));
 			return true;
 		}
 	}
@@ -61,7 +69,7 @@ class Cli extends Singleton {
 	 * @return	void
 	 */
 	protected function output($output) {
-		fputs(STDOUT, $output);
+		fputs(STDOUT, $output."\n".' Kamele > ');
 	}
 	
 	/**
@@ -70,8 +78,22 @@ class Cli extends Singleton {
 	 * @param	Array		$args		The arguments, with argument0 being the command called
 	 * @return	string
 	 */
-	protected static function help($args) {
-		return 'HELP WAS CALLED!!!1!';
+	static function commandHelp($args) {
+		$output = 'Kamele has the following commands built-in:'."\n";
+		foreach (self::$commands as $command => $data) {
+			$output .= "\n".$command."\t\t".$data['helptext'];
+		}
+		return $output;
 	}
 	
+	/**
+	 * Quitting function
+	 * 
+	 * @param	Array		$args		The arguments
+	 * @return	string
+	 */
+	 static function commandQuit() {
+	 	exit('Quitting'."\n");
+	 }
+
 }

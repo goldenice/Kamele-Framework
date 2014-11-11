@@ -13,6 +13,6 @@ class Home extends \System\Basecontroller {
     }
     
     static function systemStart() {
-        echo 'This is an event that runs because of static listeners. Awesome stuff.';
+        //echo 'This is an event that runs because of static listeners. Awesome stuff.';
     }
 }

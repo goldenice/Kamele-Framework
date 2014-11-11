@@ -51,7 +51,15 @@ final class Router {
         // we use REQUEST_URI, which returns the correct route, with the $1 here: {baseurl}index.php/$1
 		if ($this->mode == 'cli') {
             if (isset($_SERVER['argv'][1])) {
-    	        $this->route($_SERVER['argv'][0].'/'.$_SERVER['argv'][1]);    
+            	if ($_SERVER['argv'][1] == '--interactive' || $_SERVER['argv'][1] == '-i') {
+            		$cli = Cli::getInstance();
+            		//Cli::showHelp(array());
+            		$cli->interactive();
+            		exit();
+            	}
+            	else {
+    	        	$this->route($_SERVER['argv'][0].'/'.$_SERVER['argv'][1]);    
+            	}
             }
             else {
                 $this->route($_SERVER['argv'][0]);      // Default main/home/index() route
