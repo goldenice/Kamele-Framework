@@ -18,15 +18,20 @@ class Cli extends Singleton {
 	 * @var		Array
 	 */
 	static protected $commands = array(
+		'exec' => array(
+				'class'		=> '\System\Cli',
+				'function'	=> 'commandExec',
+				'helptext'	=> 'Execute a function. Syntax: exec [class] [method]'
+			),
 		'help' => array(
-		        'class'    => '\System\Cli',
-				'function' => 'commandHelp',
-				'helptext' => 'The help-command is meant to help the user on their way. How meta.'
+		        'class'    	=> '\System\Cli',
+				'function' 	=> 'commandHelp',
+				'helptext' 	=> 'The help-command is meant to help the user on their way. How meta.'
 			),
 		'quit' => array(
-		        'class'    => '\System\Cli',
-				'function' => 'commandQuit',
-				'helptext' => 'Quitting Kamele Interactive Shell, easy and simple.'
+		        'class'    	=> '\System\Cli',
+				'function' 	=> 'commandQuit',
+				'helptext' 	=> 'Quitting Kamele Interactive Shell, easy and simple.'
 			)
 		);
 	
@@ -84,6 +89,31 @@ class Cli extends Singleton {
 			$output .= "\n".$command."\t\t".$data['helptext'];
 		}
 		return $output;
+	}
+	
+	/**
+	 * Executing a function
+	 * 
+	 * @param	Array		$args		The arguments
+	 * @return	String
+	 */
+	static function commandExec($args) {
+		ob_start();
+		$static = false;
+		while (($key = array_search('-s', $args)) !== false or ($key = array_search('--static', $args)) !== false) {
+			unset($args[$key]);
+			$static = true;
+		}
+		if (count($args) < 3) return 'Error: not enough arguments';
+		echo '### RETURN VALUE ###'."\n";
+		if ($static) {
+			var_dump($args[1]::$args[2]);
+		}
+		else {
+			$obj = new $args[1];
+			var_dump($obj->$args[2]());
+		}
+		return ob_get_clean();
 	}
 	
 	/**
